@@ -21,6 +21,12 @@ var (
 )
 
 func main() {
+
+	// TODO: use a better way to get the current environment
+	if getEnv("SERVER_ENV") == "production" {
+		baseUrl = "https://funnycommits.ayehia0.info"
+	}
+
 	// GET / : return the index.html page
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		renderTemplate(w, "index.html", nil)
@@ -42,7 +48,6 @@ func main() {
 	if currEnv != "production" {
 		http.ListenAndServe(":8080", nil)
 	} else {
-		baseUrl = "https://funnycommits.ayehia0.info"
 		http.ListenAndServeTLS(":443",
 			"/etc/letsencrypt/live/funnycommits.ayehia0.info/fullchain.pem",
 			"/etc/letsencrypt/live/funnycommits.ayehia0.info/privkey.pem",
