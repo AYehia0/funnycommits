@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Funny Commits</title>
+    <script>
+        // JavaScript function to handle form submission
+        function submitForm() {
+            // Get the input value
+            var userInput = document.querySelector('.search-input').value;
+
+            // Construct the URL with the user parameter
+            var apiUrl = '/github/search?user=' + userInput;
+
+            // Redirect to the API URL
+            window.location.href = apiUrl;
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <img src="/static/commit.png" alt="GitHub Logo">
+        <a href="/github/authorize" style="color: white; text-decoration: none;">Authorize for private repos</a>
+    </nav>
+
+    <div class="main-container">
+        <h1>Commits</h1>
+
+        <form id="form-submit" onsubmit="submitForm(); return false;">
+            <input type="text" class="search-input" placeholder="Search for a username" autocomplete="off">
+        </form>
+
+        <div class="list-container">
+            <ul>
+                {{ if . }}
+                    {{ range . }}
+                        {{ template "new_card.html" . }}
+                    {{ end }}
+                {{ else }}
+                    <li>No funny commits found, this person isn't funny LOL</li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

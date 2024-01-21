@@ -1,0 +1,15 @@
+<!-- templates/new_card.html -->
+<li>
+    <h2>
+        <a href="{{.Url}}" target="_blank">{{ index (split .Message "\n") 0 }}</a>
+    </h2>
+    <div id="{{.Sha}}Details" class="details-content">
+        <p><strong>Date:</strong> {{.Date}}</p>
+        <p><strong>Repo:</strong> {{.Repo}}</p>
+        <p><strong>Message:</strong><br>
+            {{ range split .Message "\n" }}
+                {{ . }}<br>
+            {{ end }}
+        </p>
+    </div>
+</li>
