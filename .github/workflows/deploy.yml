@@ -1,0 +1,27 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - production
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - '.github/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploying docker container in server over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DO_SERVER_HOST }}
+          username: ${{ secrets.DO_SERVER_USERNAME }}
+          key: ${{ secrets.DO_SERVER_PRIVATE_KEY }}
+          script: cd /root/funnycommits && ./production_deploy.sh
