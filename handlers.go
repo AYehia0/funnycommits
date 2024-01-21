@@ -29,7 +29,7 @@ func githubCallbackHandler(w http.ResponseWriter, r *http.Request) {
 	user := getAuthenticatedUser(token)
 
 	// go to /github/commits to see the commits
-	http.Redirect(w, r, callbackApi+"?user="+user, http.StatusTemporaryRedirect)
+	http.Redirect(w, r, searchApi+"?user="+user, http.StatusTemporaryRedirect)
 }
 
 // GET /github/search : return all the funny commits for the authenticated user
