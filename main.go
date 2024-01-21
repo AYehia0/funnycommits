@@ -38,6 +38,15 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	// start the server
-	http.ListenAndServe(":8080", nil)
+	currEnv := getEnv("SERVER_ENV")
+	if currEnv != "production" {
+		http.ListenAndServe(":8080", nil)
+	} else {
+		baseUrl = "https://funnycommits.ayehia0.info"
+		http.ListenAndServeTLS(":443",
+			"/etc/letsencrypt/live/funnycommits.ayehia0.info/fullchain.pem",
+			"/etc/letsencrypt/live/funnycommits.ayehia0.info/privkey.pem",
+			nil)
+	}
 
 }

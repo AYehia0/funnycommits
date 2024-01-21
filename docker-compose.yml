@@ -1,0 +1,14 @@
+services:
+  server:
+    image: server
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./.env:/app/.env
+    environment:
+      SERVER_ENV: ${SERVER_ENV}
+    restart: unless-stopped
